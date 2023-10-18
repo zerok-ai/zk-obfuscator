@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zk-obfuscator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zk-obfuscator
+  template:
+    metadata:
+      labels:
+        app: zk-obfuscator
+    spec:
+      containers:
+      - name: zk-obfuscator
+        image: us-west1-docker.pkg.dev/zerok-dev/stage/zk-obfuscator:devclient04
+        ports:
+        - containerPort: 9103

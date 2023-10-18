@@ -1,0 +1,5 @@
+requests==2.31.0
+flask==2.3.2
+redis==4.6.0
+presidio_analyzer==2.2.33
+presidio_anonymizer==2.2.33
