@@ -15,5 +15,6 @@ spec:
       containers:
       - name: zk-obfuscator
         image: us-west1-docker.pkg.dev/zerok-dev/stage/zk-obfuscator:devclient04
+        imagePullPolicy: Always
         ports:
         - containerPort: 9103

@@ -1,15 +1,14 @@
+import json
 import logging
 import os
-import json
 
 from flask import Flask, request, jsonify, Response
-from werkzeug.exceptions import BadRequest, HTTPException
 from presidio_anonymizer.entities import InvalidParamException
-from obfuscate_request import ObfuscateRequest
-from presidio_engine import PresidioEngine
-from obfuscate_response import ObfuscateResponse
+from werkzeug.exceptions import HTTPException
 
-DEFAULT_PORT = "9103"
+from app.models.obfuscate_request import ObfuscateRequest
+from app.models.obfuscate_response import ObfuscateResponse
+from presidio_engine import PresidioEngine
 
 
 class Server:
@@ -68,9 +67,3 @@ class Server:
         def server_error(e):
             self.logger.error(f"A fatal error occurred during execution: {e}")
             return jsonify(error="Internal server error"), 500
-
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", DEFAULT_PORT))
-    server = Server()
-    server.app.run(host="0.0.0.0", port=port)
