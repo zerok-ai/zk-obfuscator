@@ -13,11 +13,11 @@ from presidio_engine import PresidioEngine
 
 class Server:
 
-    def __init__(self):
+    def __init__(self, presidioEngine: PresidioEngine):
         self.logger = logging.getLogger("zk-obfuscator")
         self.logger.setLevel(os.environ.get("LOG_LEVEL", self.logger.level))
         self.app = Flask(__name__)
-        self.presidioEngine = PresidioEngine()
+        self.presidioEngine = presidioEngine
 
         @self.app.route("/healthz")
         def health() -> str:
