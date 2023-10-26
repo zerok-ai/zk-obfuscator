@@ -6,8 +6,8 @@ class AnonymizerOperator(Enum):
 
 
 class AnalyzerConfig:
-    def __init__(self, type: str, pattern: str):
-        self.type = type
+    def __init__(self, atype: str, pattern: str):
+        self.atype = atype
         self.pattern = pattern
 
 

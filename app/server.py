@@ -23,7 +23,7 @@ class Server:
         def health() -> str:
             return "zk-obfuscator service is up"
 
-        @self.app.route("/obfuscate", methods=["POST"])
+        @self.app.route("/i/obfuscate", methods=["POST"])
         def obfuscate() -> Response:
             try:
                 req_data = ObfuscateRequest(request.get_json())
