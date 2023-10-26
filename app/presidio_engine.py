@@ -1,8 +1,9 @@
 import logging
 import os
-from presidio_anonymizer import AnonymizerEngine, BatchAnonymizerEngine
+from presidio_anonymizer import AnonymizerEngine
 from presidio_analyzer.analyzer_engine import AnalyzerEngine, RecognizerRegistry
-from presidio_analyzer.batch_analyzer_engine import BatchAnalyzerEngine
+from presidio_analyzer import PatternRecognizer
+from presidio_anonymizer.entities import OperatorConfig
 
 
 class PresidioEngine:
@@ -12,11 +13,10 @@ class PresidioEngine:
         self.logger.setLevel(os.environ.get("LOG_LEVEL", self.logger.level))
         self.logger.info("Starting obfuscator engine")
         self.anonymizerEngine = AnonymizerEngine()
-        self.batchAnonymizerEngine = BatchAnonymizerEngine(self.anonymizerEngine)
         registry = RecognizerRegistry()
         registry.load_predefined_recognizers()
         self.analyzerEngine = AnalyzerEngine(registry=registry)
-        self.batchAnalyzerEngine = BatchAnalyzerEngine(self.analyzerEngine)
+        self.operators = {}
 
     def obfuscateDict(self, data, language):
         results = {}
@@ -55,6 +55,22 @@ class PresidioEngine:
         anoymizer_result = self.anonymizerEngine.anonymize(
             text=text,
             analyzer_results=recognizer_result_list,
-            operators={},
+            operators=self.operators,
         )
         return anoymizer_result.text
+
+    def updateObfuscationRules(self, obfuscation_rules):
+        registry = RecognizerRegistry()
+        registry.load_predefined_recognizers()
+        new_operators = {}
+        for rule in obfuscation_rules:
+            if rule.analyzer.type == "regex":
+                rule_name = rule.id + "_" + rule.name
+                new_recognizer = PatternRecognizer(supported_entity=rule_name, patterns=[rule.analyzer.pattern])
+                registry.add_recognizer(new_recognizer)
+                new_config = OperatorConfig("replace", {"new_value": rule.anonymizer.value})
+                new_operators[rule_name] = new_config
+        newAnalyzerEngine = AnalyzerEngine(registry=registry)
+        # Replacing the analyzer engine and operators with the new one.
+        self.analyzerEngine = newAnalyzerEngine
+        self.operators = new_operators
