@@ -12,9 +12,27 @@ spec:
       labels:
         app: zk-obfuscator
     spec:
+      volumes:
+        - name: obfuscator-config
+          configMap:
+            name: zk-obfuscator
       containers:
       - name: zk-obfuscator
         image: us-west1-docker.pkg.dev/zerok-dev/stage/zk-obfuscator:devclient04
         imagePullPolicy: Always
         ports:
         - containerPort: 9103
+        volumeMounts:
+          - name: obfuscator-config
+            mountPath: /zk/config
+        env:
+          - name: ZK_REDIS_PASSWORD # Setting Redis password from Secret
+            valueFrom:
+              secretKeyRef:
+                name: redis
+                key: redis-password
+          - name: ZK_REDIS_HOST # Setting Redis password from Config
+            valueFrom:
+              configMapKeyRef:
+                name: zk-redis-config
+                key: redisHost

@@ -1,0 +1,11 @@
+apiVersion: v1
+data:
+  obfuscator-config.yaml: |+
+    redis_obfuscation_rules_db: 10
+    redis_obfuscation_rules_sync_interval: 30
+    http_port: 9103
+    logs_color: true
+    logs_level: DEBUG
+kind: ConfigMap
+metadata:
+  name: zk-obfuscator
