@@ -1,5 +1,5 @@
 import os
-from app.server import Server
+from server import Server
 from rule_sync import ObfuscateRuleSync
 from presidio_engine import PresidioEngine
 

@@ -1,7 +1,7 @@
 import json
 import threading
 
-from app.models.obfuscate_rule import ObfuscateRule, AnalyzerConfig, AnonymizerConfig, AnonymizerOperator
+from models.obfuscate_rule import ObfuscateRule, AnalyzerConfig, AnonymizerConfig, AnonymizerOperator
 from redis_client import RedisClient
 
 

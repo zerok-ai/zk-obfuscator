@@ -5,9 +5,8 @@ import os
 from flask import Flask, request, jsonify, Response
 from presidio_anonymizer.entities import InvalidParamException
 from werkzeug.exceptions import HTTPException
-
-from app.models.obfuscate_request import ObfuscateRequest
-from app.models.obfuscate_response import ObfuscateResponse
+from models.obfuscate_request import ObfuscateRequest
+from models.obfuscate_response import ObfuscateResponse
 from presidio_engine import PresidioEngine
 
 

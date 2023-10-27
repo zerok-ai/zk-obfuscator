@@ -5,7 +5,7 @@ from presidio_analyzer.analyzer_engine import AnalyzerEngine, RecognizerRegistry
 from presidio_analyzer import PatternRecognizer, Pattern
 from presidio_anonymizer.entities import OperatorConfig
 
-from app.models.obfuscate_rule import ObfuscateRule
+from models.obfuscate_rule import ObfuscateRule
 from typing import List
 
 
