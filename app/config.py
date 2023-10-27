@@ -19,7 +19,8 @@ class Config:
         try:
             app_config = Config()
             app_config._load_config()
-        except Exception:
+        except Exception as e:
+            print(f"Exception caught while loading config: {str(e)}")
             return False
         return True
 

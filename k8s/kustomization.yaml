@@ -3,3 +3,4 @@ namespace: zk-client
 resources:
 - ./deployment.yaml
 - ./service.yaml
+- ./configmap.yaml
