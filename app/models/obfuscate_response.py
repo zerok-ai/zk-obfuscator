@@ -1,15 +1,13 @@
-class Payload:
-    def __init__(self, data):
-        self.data = data
+from pydantic import BaseModel
+from typing import Any, Dict
 
 
-class ObfuscateResponse:
-    def __init__(self, data):
-        self.payload = Payload(data)
+class Payload(BaseModel):
+    data: Dict[str, Any]
+
+
+class ObfuscateResponse(BaseModel):
+    payload: Payload
 
     def to_dict(self):
-        return {
-            "payload": {
-                "data": self.payload.data
-            }
-        }
+        return self.dict()

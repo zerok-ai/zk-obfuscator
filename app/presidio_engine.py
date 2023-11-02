@@ -79,3 +79,6 @@ class PresidioEngine:
         # Replacing the analyzer engine and operators with the new one.
         self.analyzerEngine = newAnalyzerEngine
         self.operators = new_operators
+
+
+presidio_engine_obj = PresidioEngine()
