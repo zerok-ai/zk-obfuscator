@@ -1,0 +1,19 @@
+kubernetesClusterDomain: cluster.local
+zkObfuscator:
+  configYaml: |-
+    redis_obfuscation_rules_db: 10
+    redis_obfuscation_rules_sync_interval: 30
+    http_port: 9103
+    logs_color: true
+    logs_level: DEBUG
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 9103
+  replicas: 1
+  type: ClusterIP
+  zkObfuscator:
+    image:
+      repository: us-west1-docker.pkg.dev/zerok-dev/stage/helm-charts
+      tag: devclient04
+    imagePullPolicy: Always

@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "zk-obfuscator.fullname" . }}-zk-obfuscator
+  labels:
+  {{- include "helm-charts.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.zkObfuscator.replicas }}
+  selector:
+    matchLabels:
+      app: zk-obfuscator
+    {{- include "helm-charts.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: zk-obfuscator
+      {{- include "helm-charts.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - env:
+        - name: ZK_REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: redis-password
+              name: redis
+        - name: ZK_REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: redisHost
+              name: zk-redis-config
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ quote .Values.kubernetesClusterDomain }}
+        image: {{ .Values.zkObfuscator.zkObfuscator.image.repository }}:{{ .Values.zkObfuscator.zkObfuscator.image.tag
+          | default .Chart.AppVersion }}
+        imagePullPolicy: {{ .Values.zkObfuscator.zkObfuscator.imagePullPolicy }}
+        name: helm-charts
+        ports:
+        - containerPort: 9103
+        resources: {}
+        volumeMounts:
+        - mountPath: /zk/config
+          name: obfuscator-config
+      volumes:
+      - configMap:
+          name: {{ include "helm-charts.fullname" . }}-helm-charts
+        name: obfuscator-config
