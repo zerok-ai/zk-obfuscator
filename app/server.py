@@ -1,6 +1,5 @@
 from fastapi import HTTPException, status, FastAPI
 from presidio_anonymizer.entities import InvalidParamException
-from werkzeug.exceptions import HTTPException
 from models.obfuscate_request import ObfuscateRequest
 from models.obfuscate_response import ObfuscateResponse, Payload
 from presidio_engine import presidio_engine_obj
