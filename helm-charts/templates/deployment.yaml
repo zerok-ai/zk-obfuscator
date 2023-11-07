@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "zk-obfuscator.fullname" . }}-zk-obfuscator
+  name: zk-obfuscator
   labels:
   {{- include "helm-charts.labels" . | nindent 4 }}
 spec:
@@ -42,5 +42,5 @@ spec:
           name: obfuscator-config
       volumes:
       - configMap:
-          name: {{ include "helm-charts.fullname" . }}-helm-charts
+          name: zk-obfuscator
         name: obfuscator-config
