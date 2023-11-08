@@ -3,18 +3,18 @@ kind: Deployment
 metadata:
   name: zk-obfuscator
   labels:
-  {{- include "helm-charts.labels" . | nindent 4 }}
+  {{- include "zk-obfuscator.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.zkObfuscator.replicas }}
   selector:
     matchLabels:
       app: zk-obfuscator
-    {{- include "helm-charts.selectorLabels" . | nindent 6 }}
+    {{- include "zk-obfuscator.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
         app: zk-obfuscator
-      {{- include "helm-charts.selectorLabels" . | nindent 8 }}
+      {{- include "zk-obfuscator.selectorLabels" . | nindent 8 }}
     spec:
       containers:
       - env:

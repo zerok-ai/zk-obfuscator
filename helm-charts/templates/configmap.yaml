@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: zk-obfuscator
   labels:
-  {{- include "helm-charts.labels" . | nindent 4 }}
+  {{- include "zk-obfuscator.labels" . | nindent 4 }}
 data:
   config.yaml: {{ .Values.zkObfuscator.configYaml | toYaml | indent 1 }}
