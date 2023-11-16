@@ -18,8 +18,9 @@ class AnonymizerConfig:
 
 
 class ObfuscateRule:
-    def __init__(self, id: str, name: str, analyzer: AnalyzerConfig, anonymizer: AnonymizerConfig):
+    def __init__(self, id: str, name: str, analyzer: AnalyzerConfig, anonymizer: AnonymizerConfig, updatedAt: int):
         self.id = id
         self.name = name
         self.analyzer = analyzer
         self.anonymizer = anonymizer
+        self.updatedAt = updatedAt
