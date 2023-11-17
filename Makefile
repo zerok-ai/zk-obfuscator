@@ -2,7 +2,7 @@ LOCATION = us-west1
 PROJECT_ID = zerok-dev
 REPOSITORY = stage
 
-VERSION = fastApi
+VERSION = 0.0.1-alpha
 IMAGE = zk-obfuscator
 ART_Repo_URI = $(LOCATION)-docker.pkg.dev/$(PROJECT_ID)/$(REPOSITORY)/$(IMAGE)
 IMG_VER = $(ART_Repo_URI):$(VERSION)

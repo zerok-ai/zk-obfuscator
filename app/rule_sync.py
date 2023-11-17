@@ -17,7 +17,7 @@ class ObfuscateRuleSync:
         if serialized_rule:
             string_data = serialized_rule.decode('utf-8')
             data = json.loads(string_data)
-            obfuscate_rule = ObfuscateRule(id=data["id"], name=data["name"], updatedAt=data["updatedAt"],
+            obfuscate_rule = ObfuscateRule(id=data["id"], name=data["name"], updatedAt=data["updated_at"],
                                            analyzer=AnalyzerConfig(atype=data["analyzer"]["type"], pattern=data["analyzer"]["pattern"]),
                                            anonymizer=AnonymizerConfig(operator=AnonymizerOperator(data["anonymizer"]["operator"]),
                                                                        params=data["anonymizer"]["params"]))
