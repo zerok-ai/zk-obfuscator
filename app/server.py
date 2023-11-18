@@ -1,8 +1,8 @@
 from fastapi import HTTPException, status, FastAPI
 from presidio_anonymizer.entities import InvalidParamException
-from models.obfuscate_request import ObfuscateRequest
-from models.obfuscate_response import ObfuscateResponse, Payload
-from presidio_engine import presidio_engine_obj
+from app.models.obfuscate_request import ObfuscateRequest
+from app.models.obfuscate_response import ObfuscateResponse, Payload
+from app import presidio_engine
 
 app = FastAPI()
 
@@ -20,7 +20,7 @@ async def obfuscate(request: ObfuscateRequest):
         if not request.language:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="No language provided")
 
-        data = presidio_engine_obj.obfuscateDict(request.data, request.language)
+        data = presidio_engine.presidio_engine_obj.obfuscateDict(request.data, request.language)
         obfuscateResponse = ObfuscateResponse(payload=Payload(data=data))
         return obfuscateResponse
 

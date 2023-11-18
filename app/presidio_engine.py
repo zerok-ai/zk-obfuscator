@@ -4,10 +4,11 @@ from presidio_anonymizer import AnonymizerEngine
 from presidio_analyzer.analyzer_engine import AnalyzerEngine, RecognizerRegistry
 from presidio_analyzer import PatternRecognizer, Pattern
 from presidio_anonymizer.entities import OperatorConfig
-
-from models.obfuscate_rule import ObfuscateRule
+from presidio_analyzer.nlp_engine import SpacyNlpEngine
+from app.models.obfuscate_rule import ObfuscateRule
 from typing import List
 
+model_path = "./en_core_web_lg"
 
 class PresidioEngine:
 
@@ -18,7 +19,8 @@ class PresidioEngine:
         self.anonymizerEngine = AnonymizerEngine()
         registry = RecognizerRegistry()
         registry.load_predefined_recognizers()
-        self.analyzerEngine = AnalyzerEngine(registry=registry)
+        self.nlp_engine = SpacyNlpEngine(models={"en": model_path})
+        self.analyzerEngine = AnalyzerEngine(registry=registry, nlp_engine=self.nlp_engine)
         self.operators = {}
 
     def obfuscateDict(self, data, language):
@@ -75,7 +77,7 @@ class PresidioEngine:
                 new_value = rule.anonymizer.params["new_value"]
                 new_config = OperatorConfig("replace", {"new_value": new_value})
                 new_operators[rule_name] = new_config
-        newAnalyzerEngine = AnalyzerEngine(registry=registry)
+        newAnalyzerEngine = AnalyzerEngine(registry=registry, nlp_engine=self.nlp_engine)
         # Replacing the analyzer engine and operators with the new one.
         self.analyzerEngine = newAnalyzerEngine
         self.operators = new_operators
