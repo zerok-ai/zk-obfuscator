@@ -31,7 +31,6 @@ COPY --from=builder /zk/app/en_core_web_lg /zk/en_core_web_lg
 ENV exeARM64="zk-obfuscator-arm64"
 ENV exeAMD64="zk-obfuscator-amd64"
 
-RUN pip install -r requirements.txt
 
 # copy the start script
 COPY app-start.sh .
