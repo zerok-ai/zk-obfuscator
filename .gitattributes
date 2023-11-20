@@ -1,0 +1,4 @@
+app/en_core_web_lg/vocab/vectors filter=lfs diff=lfs merge=lfs -text
+app/en_core_web_lg/vocab/strings.json filter=lfs diff=lfs merge=lfs -text
+app/en_core_web_lg/vocab/key2row filter=lfs diff=lfs merge=lfs -text
+app/en_core_web_lg/ner/model filter=lfs diff=lfs merge=lfs -text
