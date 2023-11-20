@@ -23,16 +23,17 @@ jobs:
       GIT_TAG: ${{ github.ref }}
       DOCKER_TAG: ${{ github.event.inputs.DOCKER_TAG }}
 
-  build-push:
-    uses: zerok-ai/zk-git-actions/.github/workflows/zk-build-push-multiarch.yml@main
-    with:
-      VERSION: ${{ needs.init.outputs.VERSION }}
-      ENVIRONMENT: ${{ needs.init.outputs.ENVIRONMENT }}
-      DOCKER_IDENTIFIER: ${{ needs.init.outputs.ENVIRONMENT }}
-      PROJECT_ID: ${{ needs.init.outputs.PROJECT_ID }}
-    secrets:
-      GKE_SA_KEY: ${{ secrets.GKE_SA_KEY_PROD }}
-    needs: init
+#Commenting the build step for now. Since it's taking a lot of time to build the image, and we can do it locally for now.
+#  build-push:
+#    uses: zerok-ai/zk-git-actions/.github/workflows/zk-build-push-multiarch.yml@main
+#    with:
+#      VERSION: ${{ needs.init.outputs.VERSION }}
+#      ENVIRONMENT: ${{ needs.init.outputs.ENVIRONMENT }}
+#      DOCKER_IDENTIFIER: ${{ needs.init.outputs.ENVIRONMENT }}
+#      PROJECT_ID: ${{ needs.init.outputs.PROJECT_ID }}
+#    secrets:
+#      GKE_SA_KEY: ${{ secrets.GKE_SA_KEY_PROD }}
+#    needs: init
 
   # build helm charts and publish to helm repository
   helm-push:
