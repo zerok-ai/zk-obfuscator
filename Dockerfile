@@ -24,13 +24,11 @@ WORKDIR /zk
 
 # Copy the built application from the builder stage
 COPY --from=builder /zk/dist /zk
-COPY --from=builder /zk/app/requirements.txt /zk
 COPY --from=builder /zk/app/en_core_web_lg /zk/en_core_web_lg
 
 # base name of the executable
 ENV exeARM64="zk-obfuscator-arm64"
 ENV exeAMD64="zk-obfuscator-amd64"
-
 
 # copy the start script
 COPY app-start.sh .
